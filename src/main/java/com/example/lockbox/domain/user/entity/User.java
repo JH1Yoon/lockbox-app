@@ -20,6 +20,12 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String name;  // 사용자 이름 추가
+
+    @Column(nullable = false)
+    private String phoneNumber;  // 사용자 전화번호 추가
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole userRole;
@@ -28,9 +34,11 @@ public class User {
     private Boolean isDelete = false;
 
     @Builder
-    public User(String email, String password, UserRole userRole) {
+    public User(String email, String password, String name, String phoneNumber, UserRole userRole) {
         this.email = email;
         this.password = password;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
         this.userRole = userRole;
     }
 
@@ -45,5 +53,15 @@ public class User {
     // 비밀번호 업데이트 메서드
     public void updatePassword(String password) {
         this.password = password;
+    }
+
+    // 사용자 이름 업데이트 메서드
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    // 전화번호 업데이트 메서드
+    public void updatePhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

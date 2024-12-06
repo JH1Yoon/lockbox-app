@@ -9,17 +9,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserResponseDto {
     private String email;
-
+    private String name;
+    private String phoneNumber;
     private UserRole userRole;
 
-    public UserResponseDto(String email, UserRole userRole) {
+
+    public UserResponseDto(String email, String name, String phoneNumber, UserRole userRole) {
         this.email = email;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
         this.userRole = userRole;
     }
 
     public static UserResponseDto from(User user) {
         return new UserResponseDto(
+                user.getName(),
                 user.getEmail(),
+                user.getPhoneNumber(),
                 user.getUserRole()
         );
     }

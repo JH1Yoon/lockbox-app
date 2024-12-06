@@ -64,6 +64,8 @@ public class UserService {
         User user = User.builder()
                 .email(userRequestDto.getEmail())
                 .password(password)
+                .name(userRequestDto.getName())
+                .phoneNumber(userRequestDto.getPhoneNumber())
                 .userRole(role)
                 .build();
 
@@ -142,9 +144,17 @@ public class UserService {
         User user = userRepository.findByEmailOrThrow(email);
 
         String newPassword = userRequestDto.getPassword();
-        if (!passwordEncoder.matches(newPassword, user.getPassword())) {
+        if (newPassword != null && !newPassword.isEmpty() && !passwordEncoder.matches(newPassword, user.getPassword())) {
             newPassword = passwordEncoder.encode(newPassword);
             user.updatePassword(newPassword);
+        }
+
+        if (userRequestDto.getName() != null) {
+            user.updateName(userRequestDto.getName());
+        }
+
+        if (userRequestDto.getPhoneNumber() != null) {
+            user.updatePhoneNumber(userRequestDto.getPhoneNumber());
         }
 
         userRepository.save(user);
